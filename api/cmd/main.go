@@ -32,8 +32,7 @@ func main() {
 		AllowedOrigins: []string{os.Getenv("CLIENT_URL"), "http://127.0.0.1:3001", 
 		"https://8082-cs-2a161208-33df-4cff-a8f6-60bc958ae240.cs-us-east1-dogs.cloudshell.dev/",
 		"https://8081-cs-2a161208-33df-4cff-a8f6-60bc958ae240.cs-us-east1-dogs.cloudshell.dev/"
-		"https://3001-cs-2a161208-33df-4cff-a8f6-60bc958ae240.cs-us-east1-dogs.cloudshell.dev/"	
-	},
+		"https://3001-cs-2a161208-33df-4cff-a8f6-60bc958ae240.cs-us-east1-dogs.cloudshell.dev/"},
 		AllowedMethods: []string{
 			http.MethodGet,
 			http.MethodPost,
