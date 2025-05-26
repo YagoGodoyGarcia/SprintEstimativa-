@@ -28,7 +28,7 @@ func main() {
 	r := gin.Default()
 
 	c := cors.New(cors.Options{
-		AllowedOrigins:   []string{"*"}, // <-- PERMITE QUALQUER ORIGEM (alternativa ao AllowAllOrigins)
+		AllowedOrigins:   []string{"*", os.Getenv("CLIENT_URL")}, // <-- PERMITE QUALQUER ORIGEM (alternativa ao AllowAllOrigins)
 		AllowedMethods: []string{
 			http.MethodGet,
 			http.MethodPost,
