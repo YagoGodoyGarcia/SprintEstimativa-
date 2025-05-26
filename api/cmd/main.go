@@ -28,7 +28,7 @@ func main() {
 	r := gin.Default()
 
 	c := cors.New(cors.Options{
-		AllowAllOrigins:  true, // <-- PERMITE QUALQUER ORIGEM
+		AllowedOrigins:   []string{"*"}, // <-- PERMITE QUALQUER ORIGEM (alternativa ao AllowAllOrigins)
 		AllowedMethods: []string{
 			http.MethodGet,
 			http.MethodPost,
@@ -36,10 +36,9 @@ func main() {
 		},
 		AllowedHeaders:   []string{"*"}, // Permite quaisquer cabeçalhos
 		AllowCredentials: true, // Permite credenciais
-		// Debug: true, // Descomente se ainda tiver problemas para ver logs detalhados do CORS
-	} )	
-	r.Use(c)
-	
+		// Debug: true,
+	} )
+	r.Use(c)	
 
 	roomRoutes := r.Group("api/room")
 	{
