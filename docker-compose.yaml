@@ -7,6 +7,9 @@ services:
     command: redis-server
     ports:
       - "6379:6379"
+    # Adicione um volume para persistência se necessário
+    # volumes:
+    #  - redis_data:/data
 
   redis-commander:
     container_name: redis-commander
@@ -16,6 +19,8 @@ services:
       - REDIS_HOSTS=local:redis:6379
     ports:
       - "8081:8081"
+    depends_on: # Adicionada dependência para clareza
+      - db
 
   api:
     container_name: api
@@ -23,23 +28,36 @@ services:
       context: ./api
       dockerfile: cmd/Dockerfile
     ports:
-      - "8082:8080"
+      - "8082:8080" # Host: 8082, Container: 8080
     depends_on:
       - db
     environment:
       - REDIS_HOST=redis
       - REDIS_PORT=6379
+      # Sobrescreve CLIENT_URL do Dockerfile para apontar para o frontend acessível no host
+      - CLIENT_URL=http://localhost:3001
+      # Opcionalmente, sobrescreva JWT_KEY aqui em vez do Dockerfile
+      # - JWT_KEY=sua_chave_secreta_do_env_ou_compose
+
   webapp:
     container_name: webapp
     build:
       context: ./webapp
       dockerfile: Dockerfile
+      # Passa argumentos de build para variáveis de ambiente públicas do Next.js
+      args:
+        # Aponta para o endpoint da API acessível no host para requisições do lado do cliente
+        NEXT_PUBLIC_BASE_URL: http://localhost:8082
+        NEXT_PUBLIC_BASE_WS_URL: ws://localhost:8082
     ports:
-      - "3001:3000"
+      - "3001:3000" # Host: 3001, Container: 3000
+    # Variáveis de ambiente passadas aqui estão disponíveis em tempo de execução (server-side no Next.js)
+    # Variáveis NEXT_PUBLIC_* também são necessárias em tempo de build (passadas via build args)
+    # e em tempo de execução para hidratação do lado do cliente.
     environment:
       - NODE_ENV=production
-      - REACT_APP_BASE_WEBAPP_URL=http://webapp:3001
-      - REACT_APP_BASE_URL=http://api:8080/api
-      - REACT_APP_BASE_WS_URL=ws://api:8080/api
+      # Estas são necessárias para renderização do lado do servidor/rotas de API dentro do container
+      - NEXT_PUBLIC_BASE_URL=http://localhost:8082 # Lado do cliente
+      - NEXT_PUBLIC_BASE_WS_URL=ws://localhost:8082 # Lado do cliente
     depends_on:
       - api

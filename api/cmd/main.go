@@ -28,14 +28,20 @@ func main() {
 	r := gin.Default()
 
 	c := cors.New(cors.Options{
-		AllowedOrigins: []string{os.Getenv("CLIENT_URL")},
+		// Permite a origem configurada via ENV e também 127.0.0.1
+		AllowedOrigins: []string{os.Getenv("CLIENT_URL"), "http://127.0.0.1:3001"},
 		AllowedMethods: []string{
 			http.MethodGet,
 			http.MethodPost,
+			http.MethodOptions, // Permite o método OPTIONS para preflight requests
+			// Adicione outros métodos se sua API usar (ex: http.MethodPut, http.MethodDelete )
 		},
-		AllowedHeaders: []string{"*"},
+		AllowedHeaders:   []string{"*"}, // Permite quaisquer cabeçalhos (ajuste se necessário para produção)
+		AllowCredentials: true, // Permite envio de cookies/auth headers
+		// Debug: true, // Descomente esta linha se precisar depurar mais o CORS
 	})
 	r.Use(c)
+	
 
 	roomRoutes := r.Group("api/room")
 	{

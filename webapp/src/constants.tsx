@@ -1,9 +1,8 @@
 const env = process.env.NODE_ENV;
 
-export const BASE_WEBAPP_URL = process.env.REACT_APP_BASE_WEBAPP_URL;
-export const BASE_URL = process.env.REACT_APP_BASE_URL;
-export const BASE_WS_URL = process.env.REACT_APP_BASE_WS_URL;
-
+export const BASE_WEBAPP_URL = "http://localhost:3001";
+export const BASE_URL = process.env.NEXT_PUBLIC_BASE_URL + "/api"
+export const BASE_WS_URL = process.env.NEXT_PUBLIC_BASE_WS_URL + "/api"
 
 export const localConstants = {
   ROOM_NAME_KEY: "roomName",
