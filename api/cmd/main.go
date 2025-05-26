@@ -1,12 +1,12 @@
 package main
 
 import (
-	"github.com/a-Ksy/Planning-Poker/backend/internal/auth"
-	"github.com/a-Ksy/Planning-Poker/backend/internal/room"
-	"github.com/a-Ksy/Planning-Poker/backend/internal/ws"
-	"github.com/a-Ksy/Planning-Poker/backend/pkg/config"
-	db "github.com/a-Ksy/Planning-Poker/backend/pkg/dbcontext"
-	"github.com/a-Ksy/Planning-Poker/backend/pkg/log"
+	"github.com/YagoGodoyGarcia/SprintEstimativa-/backend/internal/auth"
+	"github.com/YagoGodoyGarcia/SprintEstimativa-/backend/internal/room"
+	"github.com/YagoGodoyGarcia/SprintEstimativa-/backend/internal/ws"
+	"github.com/YagoGodoyGarcia/SprintEstimativa-/backend/pkg/config"
+	db "github.com/YagoGodoyGarcia/SprintEstimativa-/backend/pkg/dbcontext"
+	"github.com/YagoGodoyGarcia/SprintEstimativa-/backend/pkg/log"
 	"github.com/gin-gonic/gin"
 	cors "github.com/rs/cors/wrapper/gin"
 	"net/http"
