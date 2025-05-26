@@ -3,7 +3,7 @@
   "scripts": {
     "dev": "next",
     "build": "next build",
-    "start": "next start -p $PORT"
+    "start": "next start"
   },
   "dependencies": {
     "@chakra-ui/icons": "^1.0.5",

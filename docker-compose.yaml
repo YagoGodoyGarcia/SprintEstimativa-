@@ -29,16 +29,17 @@ services:
     environment:
       - REDIS_HOST=redis
       - REDIS_PORT=6379
-
-  web:
-    container_name: web
+  webapp:
+    container_name: webapp
     build:
-      context: ./web
+      context: ./webapp
+      dockerfile: Dockerfile
     ports:
-      - "3000:80"
+      - "3001:3000"
+    environment:
+      - NODE_ENV=production
+      - REACT_APP_BASE_WEBAPP_URL=http://webapp:3001
+      - REACT_APP_BASE_URL=http://api:8080/api
+      - REACT_APP_BASE_WS_URL=ws://api:8080/api
     depends_on:
       - api
-    environment:
-      - REACT_APP_BASE_WEBAPP_URL=http://localhost:3000
-      - REACT_APP_BASE_URL=http://localhost:8082/api
-      - REACT_APP_BASE_WS_URL=ws://localhost:8082/api
